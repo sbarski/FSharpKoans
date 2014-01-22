@@ -55,8 +55,20 @@ module ``about the stock example`` =
     // tests for yourself along the way. You can also try 
     // using the F# Interactive window to check your progress.
 
+    let splitCommas (x:string) =
+        x.Split([|','|])
+
+    let difference (y : string[]) = 
+        y.[0], abs(System.Double.Parse(y.[1]) - System.Double.Parse(y.[4]))
+
+    let res =
+        stockData.Tail
+        |> Seq.map (fun x -> splitCommas x |> difference)
+        |> Seq.maxBy (fun (date, diff) -> diff)
+        |> fun x -> fst x
+
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+        let result = res
         
         AssertEquality "2012-03-13" result
